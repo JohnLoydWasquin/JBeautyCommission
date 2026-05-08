@@ -1,0 +1,398 @@
+:root {
+        --clr-bg:        #F7F0E8;
+        --clr-white:     #FFFFFF;
+        --clr-ink:       #2C1B0E;
+        --clr-ink-light: #7A6050;
+        --clr-accent:    #B07D55;
+        --clr-accent-dk: #8B6035;
+        --clr-border:    #E2D5C5;
+        --clr-success:   #27AE60;
+        --radius-md:     12px;
+        --radius-lg:     20px;
+        --shadow-card:   0 2px 24px rgba(44,27,14,.07);
+        --ff-display:    'Cormorant Garamond', Georgia, serif;
+        --ff-body:       'DM Sans', system-ui, sans-serif;
+        --transition:    0.22s ease;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+        background: var(--clr-bg);
+        color: var(--clr-ink);
+        font-family: var(--ff-body);
+        font-size: 16px;
+        line-height: 1.6;
+        min-height: 100vh;
+    }
+
+    .skip-link {
+        position: absolute; top: -100%; left: 1rem;
+        background: var(--clr-ink); color: var(--clr-white);
+        padding: .4rem .9rem; border-radius: 0 0 6px 6px;
+        font-size: .8rem; z-index: 9999; text-decoration: none;
+    }
+    .skip-link:focus { top: 0; }
+
+    /* ── Confetti canvas ── */
+    #confettiCanvas {
+        position: fixed;
+        top: 0; left: 0;
+        width: 100%; height: 100%;
+        pointer-events: none;
+        z-index: 999;
+    }
+
+    /* ── Main section ── */
+    .success-section {
+        max-width: 760px;
+        margin: 0 auto;
+        padding: 4rem 1.25rem 6rem;
+    }
+
+    /* ── Check mark animation ── */
+    .success-icon-wrap {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 2rem;
+    }
+    .success-circle {
+        width: 88px; height: 88px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #E8F5EE 0%, #D1EDDC 100%);
+        display: grid; place-items: center;
+        animation: popIn .5s cubic-bezier(.34,1.56,.64,1) both;
+    }
+    .success-circle svg {
+        width: 42px; height: 42px;
+        stroke: var(--clr-success);
+        stroke-width: 2.2;
+        stroke-dasharray: 60;
+        stroke-dashoffset: 60;
+        animation: drawCheck .45s .3s ease forwards;
+    }
+    @keyframes popIn {
+        from { transform: scale(0); opacity: 0; }
+        to   { transform: scale(1); opacity: 1; }
+    }
+    @keyframes drawCheck {
+        to { stroke-dashoffset: 0; }
+    }
+
+    /* ── Heading ── */
+    .success-eyebrow {
+        font-size: .72rem;
+        letter-spacing: .15em;
+        text-transform: uppercase;
+        color: var(--clr-success);
+        text-align: center;
+        margin-bottom: .5rem;
+    }
+    .success-heading {
+        font-family: var(--ff-display);
+        font-size: clamp(2rem, 5vw, 3rem);
+        font-weight: 400;
+        text-align: center;
+        color: var(--clr-ink);
+        line-height: 1.15;
+        margin-bottom: .75rem;
+    }
+    .success-heading em { font-style: italic; color: var(--clr-accent); }
+    .success-subtext {
+        text-align: center;
+        color: var(--clr-ink-light);
+        font-size: .95rem;
+        max-width: 480px;
+        margin: 0 auto 2.5rem;
+    }
+
+    /* ── Order ID badge ── */
+    .order-id-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: .6rem;
+        background: var(--clr-white);
+        border: 1.5px dashed var(--clr-accent);
+        border-radius: 50px;
+        padding: .6rem 1.4rem;
+        font-family: var(--ff-display);
+        font-size: 1.25rem;
+        font-weight: 500;
+        color: var(--clr-accent);
+        margin: 0 auto 2.5rem;
+        display: flex;
+        justify-content: center;
+        width: fit-content;
+    }
+    .order-id-badge .label {
+        font-family: var(--ff-body);
+        font-size: .72rem;
+        letter-spacing: .1em;
+        text-transform: uppercase;
+        color: var(--clr-ink-light);
+    }
+
+    /* ── Detail cards ── */
+    .detail-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1.2rem;
+        margin-bottom: 1.5rem;
+    }
+    @media (max-width: 560px) { .detail-grid { grid-template-columns: 1fr; } }
+
+    .detail-card {
+        background: var(--clr-white);
+        border-radius: var(--radius-lg);
+        box-shadow: var(--shadow-card);
+        padding: 1.5rem;
+    }
+
+    .detail-card-title {
+        font-size: .72rem;
+        letter-spacing: .12em;
+        text-transform: uppercase;
+        color: var(--clr-ink-light);
+        margin-bottom: .75rem;
+        display: flex;
+        align-items: center;
+        gap: .4rem;
+    }
+    .detail-card-title svg {
+        width: 15px; height: 15px;
+        stroke: var(--clr-accent);
+    }
+    .detail-card p {
+        font-size: .9rem;
+        color: var(--clr-ink);
+        line-height: 1.55;
+    }
+    .detail-card strong { font-weight: 500; }
+
+    /* ── Order items card ── */
+    .items-card {
+        background: var(--clr-white);
+        border-radius: var(--radius-lg);
+        box-shadow: var(--shadow-card);
+        padding: 1.8rem;
+        margin-bottom: 1.5rem;
+    }
+    .items-card-title {
+        font-family: var(--ff-display);
+        font-size: 1.2rem;
+        font-weight: 500;
+        margin-bottom: 1.2rem;
+        padding-bottom: .8rem;
+        border-bottom: 1px solid var(--clr-border);
+        color: var(--clr-ink);
+    }
+
+    .order-item-row {
+        display: grid;
+        grid-template-columns: 56px 1fr auto;
+        gap: .85rem;
+        align-items: center;
+        padding: .75rem 0;
+        border-bottom: 1px solid var(--clr-border);
+    }
+    .order-item-row:last-child { border-bottom: none; }
+
+    .order-item-img {
+        width: 56px; height: 56px;
+        object-fit: cover;
+        border-radius: 8px;
+        background: var(--clr-bg);
+    }
+    .order-item-name  { font-size: .9rem; font-weight: 500; color: var(--clr-ink); }
+    .order-item-qty   { font-size: .78rem; color: var(--clr-ink-light); margin-top: .15rem; }
+    .order-item-price {
+        font-family: var(--ff-display);
+        font-size: 1rem;
+        font-weight: 500;
+        white-space: nowrap;
+        color: var(--clr-ink);
+    }
+
+    .total-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 1rem;
+        padding-top: 1rem;
+        border-top: 1px solid var(--clr-border);
+        font-weight: 500;
+    }
+    .total-row .total-amount {
+        font-family: var(--ff-display);
+        font-size: 1.4rem;
+        color: var(--clr-accent);
+    }
+
+    /* ── CTA buttons ── */
+    .success-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1rem;
+        justify-content: center;
+        margin-top: 2.5rem;
+    }
+    .btn-primary, .btn-secondary {
+        display: inline-flex;
+        align-items: center;
+        gap: .5rem;
+        border-radius: 50px;
+        padding: .85rem 2rem;
+        min-height: 52px;
+        font-family: var(--ff-body);
+        font-size: .85rem;
+        font-weight: 500;
+        letter-spacing: .08em;
+        text-transform: uppercase;
+        text-decoration: none;
+        cursor: pointer;
+        border: none;
+        transition: background var(--transition), transform var(--transition), box-shadow var(--transition);
+    }
+    .btn-primary {
+        background: var(--clr-ink);
+        color: #fff;
+    }
+    .btn-primary:hover {
+        background: var(--clr-accent-dk);
+        transform: translateY(-2px);
+        box-shadow: 0 8px 24px rgba(44,27,14,.18);
+        color: #fff;
+        text-decoration: none;
+    }
+    .btn-secondary {
+        background: var(--clr-white);
+        color: var(--clr-ink);
+        border: 1.5px solid var(--clr-border);
+    }
+    .btn-secondary:hover {
+        border-color: var(--clr-accent);
+        color: var(--clr-accent);
+        transform: translateY(-2px);
+        text-decoration: none;
+    }
+
+    /* ── Status pill ── */
+    .status-pill {
+        display: inline-block;
+        background: #EAF4EE;
+        color: var(--clr-success);
+        border-radius: 50px;
+        padding: .2rem .75rem;
+        font-size: .75rem;
+        font-weight: 500;
+        letter-spacing: .05em;
+        text-transform: uppercase;
+    }
+
+    /* ── What happens next ── */
+    .next-steps {
+        background: var(--clr-white);
+        border-radius: var(--radius-lg);
+        box-shadow: var(--shadow-card);
+        padding: 1.8rem;
+        margin-bottom: 1.5rem;
+    }
+    .next-steps h3 {
+        font-family: var(--ff-display);
+        font-size: 1.15rem;
+        font-weight: 500;
+        margin-bottom: 1.2rem;
+        color: var(--clr-ink);
+    }
+    .steps-list {
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        gap: .95rem;
+    }
+    .steps-list li {
+        display: flex;
+        align-items: flex-start;
+        gap: .85rem;
+        font-size: .88rem;
+        color: var(--clr-ink-light);
+        line-height: 1.5;
+    }
+    .step-icon {
+        flex-shrink: 0;
+        width: 32px; height: 32px;
+        border-radius: 50%;
+        background: var(--clr-bg);
+        display: grid; place-items: center;
+    }
+    .step-icon svg {
+        width: 15px; height: 15px;
+        stroke: var(--clr-accent);
+    }
+
+    /* ══════════════════════════════════════════════════════════
+       NAVBAR OVERRIDE — matches index.php / shop.php exactly
+    ══════════════════════════════════════════════════════════ */
+    #header .nav-icon-btn,
+    #header .nav-icon-btn:link,
+    #header .nav-icon-btn:visited {
+        display:         inline-flex          !important;
+        align-items:     center               !important;
+        justify-content: center               !important;
+        width:           38px                 !important;
+        height:          38px                 !important;
+        padding:         0                    !important;
+        margin:          0                    !important;
+        background:      transparent          !important;
+        border:          none                 !important;
+        border-radius:   50%                  !important;
+        color:           var(--clr-ink)       !important;
+        cursor:          pointer              !important;
+        text-decoration: none                 !important;
+        transition:      background var(--transition),
+                         color var(--transition) !important;
+        flex-shrink:     0                    !important;
+    }
+    #header .nav-icon-btn:hover,
+    #header .nav-icon-btn:focus {
+        background:      rgba(44,27,14,.07)   !important;
+        color:           var(--clr-ink)       !important;
+        text-decoration: none                 !important;
+    }
+    #header .nav-icon-btn svg {
+        width:        20px                    !important;
+        height:       20px                    !important;
+        stroke:       currentColor            !important;
+        stroke-width: 1.6                     !important;
+        fill:         none                    !important;
+        display:      block                   !important;
+    }
+    #header .nav-actions {
+        display:     flex                     !important;
+        align-items: center                   !important;
+        gap:         0.25rem                  !important;
+    }
+    #header .nav-hamburger {
+        display:        none                  !important;
+        flex-direction: column                !important;
+        align-items:    center                !important;
+        justify-content: center              !important;
+        gap:            5px                   !important;
+        width:          38px                  !important;
+        height:         38px                  !important;
+        padding:        0                     !important;
+        background:     transparent           !important;
+        border:         none                  !important;
+        cursor:         pointer               !important;
+    }
+    #header .nav-hamburger span {
+        display:       block                  !important;
+        width:         22px                   !important;
+        height:        1.5px                  !important;
+        background:    var(--clr-ink)         !important;
+        border-radius: 2px                    !important;
+        transition:    transform .3s ease, opacity .3s ease !important;
+    }
+    @media (max-width: 768px) {
+        #header .nav-hamburger { display: flex !important; }
+        #header .nav-links     { display: none !important; }
+    }
