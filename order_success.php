@@ -60,6 +60,9 @@ $paymentLabels = [
     'cash_on_delivery' => 'Cash on Delivery',
 ];
 $paymentLabel = $paymentLabels[$order['payment_method'] ?? ''] ?? ucwords($order['payment_method'] ?? '');
+
+// Dynamic profile route
+$profileRoute = isset($_SESSION['user_id']) ? 'profile.php' : 'auth/login.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -75,13 +78,72 @@ $paymentLabel = $paymentLabels[$order['payment_method'] ?? ''] ?? ucwords($order
 
     <link rel="stylesheet" href="assets/css/home.css">
     <link rel="icon" type="image/png" href="assets/img/jbeautylogo.jpg">
-    <link rel="stylesheet" href="assets/css/order_succes.css">
+    <link rel="stylesheet" href="assets/css/order_success.css">
+
+    <style>
+        /*
+         * FIX: home.css applies svg { width: 100% } globally.
+         * These rules forcibly override that for every icon
+         * inside the success page so they never blow up on mobile.
+         */
+
+        /* Step icons in "What happens next" */
+        .step-icon {
+            flex-shrink: 0 !important;
+            width:     32px !important;
+            height:    32px !important;
+            min-width: 32px !important;
+        }
+        .step-icon svg {
+            display:   block   !important;
+            width:     15px    !important;
+            height:    15px    !important;
+            max-width: 15px    !important;
+            flex-shrink: 0     !important;
+        }
+
+        /* Detail card title icons (location pin, credit card) */
+        .detail-card-title svg {
+            display:   block   !important;
+            width:     15px    !important;
+            height:    15px    !important;
+            max-width: 15px    !important;
+            flex-shrink: 0     !important;
+        }
+
+        /* Animated checkmark circle */
+        .success-circle {
+            flex-shrink: 0   !important;
+            width:     88px  !important;
+            height:    88px  !important;
+            min-width: 88px  !important;
+        }
+        .success-circle svg {
+            display:   block   !important;
+            width:     42px    !important;
+            height:    42px    !important;
+            max-width: 42px    !important;
+        }
+
+        /* CTA button icons */
+        .btn-primary svg,
+        .btn-secondary svg {
+            display:   block   !important;
+            width:     18px    !important;
+            height:    18px    !important;
+            max-width: 18px    !important;
+            flex-shrink: 0     !important;
+        }
+    </style>
 </head>
 <body>
 
 <canvas id="confettiCanvas" aria-hidden="true"></canvas>
 <a href="#main-content" class="skip-link">Skip to main content</a>
 
+<!-- ══════════════════════════════════════════════════════════════
+     HEADER
+══════════════════════════════════════════════════════════════ -->
 <header id="header" role="banner" aria-label="Main navigation">
     <div class="container">
         <nav class="nav-inner" aria-label="Primary">
@@ -96,7 +158,8 @@ $paymentLabel = $paymentLabels[$order['payment_method'] ?? ''] ?? ucwords($order
                 <li><a href="index.php#contact">Contact</a></li>
             </ul>
             <div class="nav-actions">
-                <a href="#" class="nav-icon-btn" aria-label="View your profile">
+                <!-- FIX: was href="#" — now dynamic based on session -->
+                <a href="<?= $profileRoute ?>" class="nav-icon-btn" aria-label="View your profile">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z"/>
                     </svg>
@@ -107,11 +170,22 @@ $paymentLabel = $paymentLabels[$order['payment_method'] ?? ''] ?? ucwords($order
             </div>
         </nav>
     </div>
+
+    <!-- FIX: added dynamic account links to mobile menu -->
     <nav id="mobileMenu" class="mobile-menu" aria-label="Mobile navigation" aria-hidden="true">
         <a href="index.php">Home</a>
         <a href="shop.php">Shop</a>
         <a href="index.php#about">About Us</a>
         <a href="index.php#contact">Contact</a>
+
+        <hr style="border:none; border-top:1px solid rgba(44,27,14,.12); margin:.5rem 1.2rem;">
+
+        <?php if (isset($_SESSION['user_id'])): ?>
+            <a href="profile.php">My Profile</a>
+            <a href="auth/logout.php" style="color:#C0392B;">Log Out</a>
+        <?php else: ?>
+            <a href="auth/login.php">Log In / Register</a>
+        <?php endif; ?>
     </nav>
 </header>
 

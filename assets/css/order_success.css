@@ -396,3 +396,42 @@
         #header .nav-hamburger { display: flex !important; }
         #header .nav-links     { display: none !important; }
     }
+
+    /* ── Mobile icon size fix ───────────────────────── */
+
+/* Cap ALL SVGs inside the success section */
+.success-section svg {
+    max-width: 100%;
+    flex-shrink: 0;
+}
+
+/* Next steps list icons — enforce container */
+.step-icon {
+    flex-shrink: 0 !important;
+    width:  32px !important;
+    height: 32px !important;
+    min-width: 32px !important;
+}
+.step-icon svg {
+    width:  15px !important;
+    height: 15px !important;
+}
+
+/* Detail card title icons */
+.detail-card-title svg {
+    width:  15px !important;
+    height: 15px !important;
+    flex-shrink: 0 !important;
+}
+
+/* Success checkmark circle — keep it circular */
+.success-circle {
+    flex-shrink: 0 !important;
+    width:  88px !important;
+    height: 88px !important;
+    min-width: 88px !important;
+}
+.success-circle svg {
+    width:  42px !important;
+    height: 42px !important;
+}
