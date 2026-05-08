@@ -1,0 +1,22 @@
+# JBeauty · .gitignore
+
+# Never commit secrets
+config/secrets.php
+.env
+.env.local
+
+# XAMPP / local server artifacts
+*.log
+
+# macOS
+.DS_Store
+__MACOSX/
+
+# Windows
+Thumbs.db
+desktop.ini
+
+# IDE
+.vscode/
+.idea/
+*.swp
